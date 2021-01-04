@@ -8,13 +8,17 @@
       <!-- 登录表单区域 -->
       <el-form label-width="0px" class="login_form" :model="loginForm" :rules="loginFormRules" ref="loginFormRef">
         <!-- 用户名 -->
-        <el-form-item prop="username">
-          <el-input prefix-icon="iconfont icon-user" v-model="loginForm.username" title="用户名"></el-input>
-        </el-form-item>
+        <el-tooltip effect="dark" content="用户名" placement="right" :enterable="false">
+          <el-form-item prop="username">
+            <el-input prefix-icon="iconfont icon-user" v-model="loginForm.username"></el-input>
+          </el-form-item>
+        </el-tooltip>
         <!-- 密码 -->
-        <el-form-item prop="password">
-          <el-input type="password" prefix-icon="iconfont icon-3702mima" v-model="loginForm.password" title="密码"></el-input>
-        </el-form-item>
+        <el-tooltip effect="dark" content="密码" placement="right" :enterable="false">
+          <el-form-item prop="password">
+            <el-input type="password" prefix-icon="iconfont icon-3702mima" v-model="loginForm.password" title="密码"></el-input>
+          </el-form-item>
+        </el-tooltip>
         <!-- 按钮区域 -->
         <el-form-item class="btns">
           <el-button type="primary" @click="login">立即登录</el-button>
@@ -59,7 +63,7 @@ export default {
       this.$refs.loginFormRef.validate(async valid => {
         if (!valid) return
         const { data: result } = await this.$http.post('login', this.loginForm)
-        console.log(result)
+        // console.log(result)
         if (result.meta.status !== 200) return this.$message.error('登录失败!')
         this.$message.success('登录成功!')
         // 1. 将登陆成功之后的 token 保存到客户端的 sessionStorage 中
